@@ -4,10 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZippyZpl"
+        xmlns:view="clr-namespace:ZippyZpl.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Image x:Name="LabelDisplay" HorizontalAlignment="Left" Height="373" Margin="47,24,0,0" VerticalAlignment="Top" Width="382"/>
-
+        <view:LabelView x:Name = "LabelViewControl" Loaded = "LabelViewControl_Loaded"/>
     </Grid>
 </Window>
