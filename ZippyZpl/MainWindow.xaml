@@ -8,6 +8,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <view:LabelView x:Name = "LabelViewControl" Loaded = "LabelViewControl_Loaded"/>
+        <ScrollViewer>
+            <view:LabelView x:Name = "LabelViewControl" Loaded = "LabelViewControl_Loaded"/>
+        </ScrollViewer>
     </Grid>
 </Window>
