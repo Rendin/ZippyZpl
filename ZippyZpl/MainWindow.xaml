@@ -3,13 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ZippyZpl"
         xmlns:view="clr-namespace:ZippyZpl.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <ScrollViewer>
-            <view:LabelView x:Name = "LabelViewControl" Loaded = "LabelViewControl_Loaded"/>
-        </ScrollViewer>
-    </Grid>
+        Title="MainWindow" Height="450" Width="200">
+    <DockPanel>
+        <Menu Name = "ConnectControl" DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Listen"
+                          IsCheckable="True" 
+                          Checked="Listen_Checked" 
+                          Unchecked="Listen_Unchecked"/>
+            </MenuItem>
+        </Menu>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Column="0">
+                <view:LabelView x:Name = "LabelViewControl" Loaded = "LabelViewControl_Loaded" Background="Black"/>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
 </Window>

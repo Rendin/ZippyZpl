@@ -3,11 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ZippyZpl.View"
+             xmlns:commands="clr-namespace:ZippyZpl.Command"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
+    <!--<UserControl.CommandBindings>
+        <CommandBinding 
+            Command="{x:Static commands:ZippyZpl:ListenCommand}" 
+            CanExecute="ListenCommand_CanExecute"
+            Executed="ListenCommand_Executed" />
+    </UserControl.CommandBindings>-->
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment = "Left">
 
             <ItemsControl ItemsSource = "{Binding Path = Labels}">
@@ -15,7 +27,9 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation = "Horizontal">
-                            <Image Source = "{Binding Path = LabelImage.UriSource}"/>
+                            <Border Background="Black" BorderThickness="5" CornerRadius="8,8,3,3">
+                                <Image Source = "{Binding Path = LabelImage.UriSource}" Stretch="Uniform"/>
+                            </Border>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
