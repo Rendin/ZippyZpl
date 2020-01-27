@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using ZippyZpl.View;
 using ZippyZpl.ViewModel;
 
 namespace ZippyZpl {
@@ -9,6 +11,14 @@ namespace ZippyZpl {
         private LabelViewModel labelViewModelObject = null;
         public MainWindow() {
             InitializeComponent();
+
+            base.Closing += this.MainWindow_Closing;
+        }
+
+        void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            if (labelViewModelObject != null) {
+                labelViewModelObject.Shutdown();
+            }
         }
 
         private void LabelViewControl_Loaded(object sender, RoutedEventArgs e) {
@@ -24,6 +34,16 @@ namespace ZippyZpl {
 
         private void Listen_Unchecked(object sender, RoutedEventArgs e) {
             labelViewModelObject.StartListening();
+        }
+
+        private void LabelSize_Click(object sender, RoutedEventArgs e) {
+            // Instantiate the dialog box
+            LabelSizeView dlg = new LabelSizeView(labelViewModelObject);
+
+            // Configure the dialog box
+            dlg.Owner = this;
+
+            dlg.Show();
         }
     }
 }

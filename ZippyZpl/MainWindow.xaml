@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:view="clr-namespace:ZippyZpl.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="200">
+        Title="MainWindow" Height="450" Width="400">
     <DockPanel>
         <Menu Name = "ConnectControl" DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -13,14 +13,16 @@
                           IsCheckable="True" 
                           Checked="Listen_Checked" 
                           Unchecked="Listen_Unchecked"/>
+                <Separator/>
+                <MenuItem Header="Label Size" Click="LabelSize_Click"/>
             </MenuItem>
         </Menu>
-        <Grid DockPanel.Dock="Bottom">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <ScrollViewer Grid.Column="0">
                 <view:LabelView x:Name = "LabelViewControl" Loaded = "LabelViewControl_Loaded" Background="Black"/>

@@ -14,10 +14,13 @@ using ZippyZpl.Model;
 
 namespace ZippyZpl.ViewModel {
     public class LabelViewModel {
-        public static string data = null;
+        private static string data = null;
         private static bool killListen = false;
         private Thread thread = null;
         private TcpListener listener = null;
+
+        private uint labelWidth = 6;
+        private uint labelHeight = 4;
 
 
         private ObservableCollection<Label> labels = new ObservableCollection<Label>();
@@ -25,13 +28,18 @@ namespace ZippyZpl.ViewModel {
         public LabelViewModel() {
         }
 
-        ~LabelViewModel() {
-            if (killListen == false && listener != null) {
+        public void Shutdown() {
+            if (listener != null) {
                 killListen = true;
                 listener.Stop();
                 thread.Join(5000);
                 thread = null;
             }
+        }
+
+        public void SetLabelSize(uint width, uint height) {
+            labelWidth = width;
+            labelHeight = height;
         }
 
         public ObservableCollection<Label> Labels {
@@ -112,7 +120,9 @@ namespace ZippyZpl.ViewModel {
                     byte[] zpl = Encoding.UTF8.GetBytes(data);
 
                     // adjust print density (8dpmm), label width (4 inches), label height (6 inches), and label index (0) as necessary
-                    var request = (HttpWebRequest)WebRequest.Create("http://api.labelary.com/v1/printers/8dpmm/labels/4x2/0/");
+                    var request = (HttpWebRequest)WebRequest.Create("http://api.labelary.com/v1/printers/8dpmm/labels/" +
+                                                                    labelWidth.ToString() + "x" + labelHeight.ToString() +
+                                                                    "/0/");
 
                     var proxy = WebRequest.GetSystemWebProxy();
                     proxy.Credentials = CredentialCache.DefaultCredentials;
