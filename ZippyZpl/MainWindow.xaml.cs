@@ -26,6 +26,7 @@ namespace ZippyZpl {
             labelViewModelObject.LoadLabels();
 
             LabelViewControl.DataContext = labelViewModelObject;
+            labelViewModelObject.StartListening();
         }
 
         private void Listen_Checked(object sender, RoutedEventArgs e) {
@@ -39,11 +40,16 @@ namespace ZippyZpl {
         private void LabelSize_Click(object sender, RoutedEventArgs e) {
             // Instantiate the dialog box
             LabelSizeView dlg = new LabelSizeView(labelViewModelObject);
+            dlg.DataContext = labelViewModelObject;
 
             // Configure the dialog box
             dlg.Owner = this;
 
             dlg.Show();
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e) {
+            labelViewModelObject.Labels.Clear();
         }
     }
 }

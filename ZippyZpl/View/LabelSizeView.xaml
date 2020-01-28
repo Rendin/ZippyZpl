@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZippyZpl.View"
         mc:Ignorable="d"
-        Title="LabelSizeView" Height="150" Width="200"
+        Title="LabelSizeView"
+        Height="100" Width="150"
         WindowStartupLocation="CenterOwner">
     <Grid Background="#FFC3C3C3">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
@@ -17,10 +19,10 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Grid.Column="0" Grid.Row="0">Width:</Label>
-        <TextBox Name="widthTextBox" Grid.Column="1" Grid.Row="0" MinWidth="40">
-         </TextBox>
+        <TextBox Name="widthTextBox" Grid.Column="1" Grid.Row="0" MinWidth="40" Text="{Binding LabelWidth}">
+        </TextBox>
         <Label Grid.Column="0" Grid.Row="1">Height:</Label>
-        <TextBox Name="heightTextBox" Grid.Column="1" Grid.Row="1" MinWidth="40">
+        <TextBox Name="heightTextBox" Grid.Column="1" Grid.Row="1" MinWidth="40" Text="{Binding LabelHeight}">
         </TextBox>
     </Grid >
 </Window>

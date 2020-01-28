@@ -9,12 +9,14 @@
     <DockPanel>
         <Menu Name = "ConnectControl" DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="Listen"
+                <!--<MenuItem Header="Listen"
                           IsCheckable="True" 
                           Checked="Listen_Checked" 
                           Unchecked="Listen_Unchecked"/>
-                <Separator/>
+                <Separator/>-->
                 <MenuItem Header="Label Size" Click="LabelSize_Click"/>
+                <Separator/>
+                <MenuItem Header="Clear" Click="Clear_Click"/>
             </MenuItem>
         </Menu>
         <Grid>

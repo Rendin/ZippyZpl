@@ -18,13 +18,15 @@ namespace ZippyZpl.ViewModel {
         private Thread thread = null;
         private TcpListener listener = null;
 
-        private uint labelWidth = 4;
-        private uint labelHeight = 12;
+        //private uint labelWidth = 4;
+        //private uint labelHeight = 12;
 
 
         private ObservableCollection<Label> labels = new ObservableCollection<Label>();
 
         public LabelViewModel() {
+            LabelWidth = 6;
+            LabelHeight = 4;
         }
 
         public void Shutdown() {
@@ -36,9 +38,14 @@ namespace ZippyZpl.ViewModel {
             }
         }
 
-        public void SetLabelSize(uint width, uint height) {
-            labelWidth = width;
-            labelHeight = height;
+        public uint LabelWidth {
+            get;
+            set;
+        }
+
+        public uint LabelHeight {
+            get;
+            set;
         }
 
         public ObservableCollection<Label> Labels {
@@ -47,7 +54,6 @@ namespace ZippyZpl.ViewModel {
         }
 
         public void LoadLabels() {
-
             Labels = labels;
         }
 
@@ -114,7 +120,7 @@ namespace ZippyZpl.ViewModel {
 
                     // adjust print density (8dpmm), label width (4 inches), label height (6 inches), and label index (0) as necessary
                     var request = (HttpWebRequest)WebRequest.Create("http://api.labelary.com/v1/printers/8dpmm/labels/" +
-                                                                    labelWidth.ToString() + "x" + labelHeight.ToString() +
+                                                                    LabelWidth.ToString() + "x" + LabelHeight.ToString() +
                                                                     "/0/");
 
                     var proxy = WebRequest.GetSystemWebProxy();
