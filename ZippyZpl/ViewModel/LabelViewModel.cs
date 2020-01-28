@@ -14,13 +14,12 @@ using ZippyZpl.Model;
 
 namespace ZippyZpl.ViewModel {
     public class LabelViewModel {
-        private static string data = null;
         private static bool killListen = false;
         private Thread thread = null;
         private TcpListener listener = null;
 
-        private uint labelWidth = 6;
-        private uint labelHeight = 4;
+        private uint labelWidth = 4;
+        private uint labelHeight = 12;
 
 
         private ObservableCollection<Label> labels = new ObservableCollection<Label>();
@@ -57,7 +56,7 @@ namespace ZippyZpl.ViewModel {
                 thread = new Thread(ListenForLabels);
                 thread.Start();
             }
-            else if (killListen == false){
+            else if (killListen == false) {
                 killListen = true;
                 listener.Stop();
                 thread.Join(5000);
@@ -91,33 +90,27 @@ namespace ZippyZpl.ViewModel {
                 while (true) {
                     // Program is suspended while waiting for an incoming connection.  
                     TcpClient client = listener.AcceptTcpClient();
-                    data = null;
 
                     if (killListen) {
                         break;
                     }
-                    
+
                     NetworkStream stream = client.GetStream();
 
                     int i;
+                    byte[] zpl = new byte[0];
 
                     // Loop to receive all the data sent by the client.
                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0) {
-                        // Translate data bytes to a ASCII string.
-                        data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                        Console.WriteLine("Received: {0}", data);
+                        byte[] temp = new byte[zpl.Length + bytes.Length];
+                        System.Buffer.BlockCopy(zpl, 0, temp, 0, zpl.Length);
+                        System.Buffer.BlockCopy(bytes, 0, temp, zpl.Length, bytes.Length);
 
-                        // Process the data sent by the client.
-                        data = data.ToUpper();
+                        zpl = temp;
                     }
 
                     // Shutdown and end connection
                     client.Close();
-
-                    // Show the data on the console.  
-                    Console.WriteLine("Text received : {0}", data);
-
-                    byte[] zpl = Encoding.UTF8.GetBytes(data);
 
                     // adjust print density (8dpmm), label width (4 inches), label height (6 inches), and label index (0) as necessary
                     var request = (HttpWebRequest)WebRequest.Create("http://api.labelary.com/v1/printers/8dpmm/labels/" +
@@ -146,7 +139,7 @@ namespace ZippyZpl.ViewModel {
 
                         Application.Current.Dispatcher.BeginInvoke(
                             DispatcherPriority.Background,
-                            new Action(() => labels.Add(new Label {
+                            new Action(() => labels.Insert(0, new Label {
                                 LabelImage = new BitmapImage(new Uri(fileName))
                             })));
                         ;
